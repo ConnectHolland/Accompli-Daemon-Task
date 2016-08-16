@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "03b4b16f8a4a10f15d1092eb8bb7edc9",
-    "content-hash": "0458def1d6afedd771df8d54f3ed2018",
+    "hash": "55e486d6d9e00d4e32033aaee8950925",
+    "content-hash": "127d52f54ff0a077765e4d8c558bf584",
     "packages": [
         {
             "name": "accompli/accompli",
@@ -1004,6 +1004,8 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": "^5.6 | ^7.0"
+    },
     "platform-dev": []
 }

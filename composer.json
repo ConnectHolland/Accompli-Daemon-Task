@@ -10,6 +10,7 @@
         }
     ],
     "require": {
-        "accompli/accompli": "^0.3.0"
+        "accompli/accompli": "^0.3.0",
+        "php": "^5.6 | ^7.0"
     }
 }

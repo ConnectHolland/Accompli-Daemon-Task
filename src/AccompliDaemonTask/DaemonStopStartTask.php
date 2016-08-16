@@ -32,7 +32,7 @@ class DaemonStopStartTask extends AbstractConnectedTask
     private $stop;
 
     /**
-     * Creates a new DaemonStopStartTask
+     * Creates a new DaemonStopStartTask.
      *
      * @param $start
      * @param $stop
@@ -51,9 +51,9 @@ class DaemonStopStartTask extends AbstractConnectedTask
     public static function getSubscribedEvents()
     {
         return [
-            AccompliEvents::DEPLOY_RELEASE => ['stopDaemon', 0],
-            AccompliEvents::DEPLOY_RELEASE_FAILED => ['startDaemonInCurrentRelease', 0],
-            AccompliEvents::DEPLOY_RELEASE_COMPLETE => ['startDaemonInNewRelease', 0]
+            AccompliEvents::DEPLOY_RELEASE          => ['stopDaemon', 0],
+            AccompliEvents::DEPLOY_RELEASE_FAILED   => ['startDaemonInCurrentRelease', 0],
+            AccompliEvents::DEPLOY_RELEASE_COMPLETE => ['startDaemonInNewRelease', 0],
         ];
     }
 
@@ -93,9 +93,9 @@ class DaemonStopStartTask extends AbstractConnectedTask
      * Starts the daemon in $release.
      *
      *
-     * @param Release $release
+     * @param Release                  $release
      * @param EventDispatcherInterface $eventDispatcher
-     * @param string $eventName
+     * @param string                   $eventName
      */
     private function startDaemon(Release $release, EventDispatcherInterface $eventDispatcher, $eventName)
     {
@@ -105,10 +105,10 @@ class DaemonStopStartTask extends AbstractConnectedTask
     /**
      * Execute $command in $release.
      *
-     * @param Release $release
+     * @param Release                  $release
      * @param EventDispatcherInterface $eventDispatcher
-     * @param string $command
-     * @param string $eventName
+     * @param string                   $command
+     * @param string                   $eventName
      */
     private function executeCommand(Release $release, EventDispatcherInterface $eventDispatcher, $command, $eventName)
     {
@@ -125,7 +125,7 @@ class DaemonStopStartTask extends AbstractConnectedTask
                     $eventName,
                     $this,
                     [
-                        'daemon' => $command
+                        'daemon' => $command,
                     ]
                 )
             );
@@ -138,13 +138,12 @@ class DaemonStopStartTask extends AbstractConnectedTask
                     $eventName,
                     $this,
                     [
-                        'daemon' => $command,
-                        'error' => $result->getErrorOutput(),
-                        'separator' => "\n=================\n"
+                        'daemon'    => $command,
+                        'error'     => $result->getErrorOutput(),
+                        'separator' => "\n=================\n",
                     ]
                 )
             );
         }
     }
-
 }

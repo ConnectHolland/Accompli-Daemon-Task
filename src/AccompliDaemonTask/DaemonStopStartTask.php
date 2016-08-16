@@ -114,7 +114,7 @@ class DaemonStopStartTask extends AbstractConnectedTask
     {
         $host = $release->getWorkspace()->getHost();
         $connection = $this->ensureConnection($host);
-        $result = $connection->executeCommand($command);
+        $result = $connection->executeCommand(sprintf('%s/%s', $release->getPath(), $command));
 
         if ($result->isSuccessful()) {
             $eventDispatcher->dispatch(

@@ -77,7 +77,7 @@ class DaemonStopStartTaskTest extends PHPUnit_Framework_TestCase
 
         $eventDispatcher->shouldHaveReceived('dispatch')->once(); // the log message
         $this->assertNotNull($this->executedCommand);
-        $this->assertEquals('stop', $this->executedCommand);
+        $this->assertEquals('/the/full/path/stop', $this->executedCommand);
         $this->assertNotNull($this->release);
         $this->assertEquals('current', $this->release);
     }
@@ -97,7 +97,7 @@ class DaemonStopStartTaskTest extends PHPUnit_Framework_TestCase
 
         $eventDispatcher->shouldHaveReceived('dispatch')->once(); // the log message
         $this->assertNotNull($this->executedCommand);
-        $this->assertEquals('start', $this->executedCommand);
+        $this->assertEquals('/the/full/path/start', $this->executedCommand);
         $this->assertNotNull($this->release);
         $this->assertEquals('current', $this->release);
     }
@@ -117,7 +117,7 @@ class DaemonStopStartTaskTest extends PHPUnit_Framework_TestCase
 
         $eventDispatcher->shouldHaveReceived('dispatch')->once(); // the log message
         $this->assertNotNull($this->executedCommand);
-        $this->assertEquals('start', $this->executedCommand);
+        $this->assertEquals('/the/full/path/start', $this->executedCommand);
         $this->assertNotNull($this->release);
         $this->assertEquals('new', $this->release);
     }
@@ -161,6 +161,7 @@ class DaemonStopStartTaskTest extends PHPUnit_Framework_TestCase
 
         $release = Mockery::mock(Release::class);
         $release->shouldReceive('getWorkspace')->andReturn($workspaceMock);
+        $release->shouldReceive('getPath')->andReturn('/the/full/path');
 
         $eventMock->shouldReceive('getCurrentRelease')->andReturnUsing(function () use ($release) {
             $this->release = 'current';

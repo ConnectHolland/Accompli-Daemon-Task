@@ -1,0 +1,15 @@
+{
+    "name": "connectholland/accompli-daemon-task",
+    "description": "Accompli task to manage daemons",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ron Rademaker",
+            "email": "ron@connectholland.nl"
+        }
+    ],
+    "require": {
+        "accompli/accompli": "^0.3.0"
+    }
+}

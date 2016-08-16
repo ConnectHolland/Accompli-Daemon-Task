@@ -40,9 +40,9 @@ class DaemonStopStartTaskTest extends PHPUnit_Framework_TestCase
     public function testExpectedEventSubscriptions()
     {
         $expected = [
-            AccompliEvents::DEPLOY_RELEASE => 'stopDaemon',
-            AccompliEvents::DEPLOY_RELEASE_FAILED => 'startDaemonInCurrentRelease',
-            AccompliEvents::DEPLOY_RELEASE_COMPLETE => 'startDaemonInNewRelease'
+            AccompliEvents::DEPLOY_RELEASE          => 'stopDaemon',
+            AccompliEvents::DEPLOY_RELEASE_FAILED   => 'startDaemonInCurrentRelease',
+            AccompliEvents::DEPLOY_RELEASE_COMPLETE => 'startDaemonInNewRelease',
         ];
 
         $actual = DaemonStopStartTask::getSubscribedEvents();

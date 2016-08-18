@@ -77,7 +77,7 @@ class DaemonStopStartTaskTest extends PHPUnit_Framework_TestCase
 
         $eventDispatcher->shouldHaveReceived('dispatch')->once(); // the log message
         $this->assertNotNull($this->executedCommand);
-        $this->assertEquals('/the/full/path/stop', $this->executedCommand);
+        $this->assertEquals('stop', $this->executedCommand);
         $this->assertNotNull($this->release);
         $this->assertEquals('current', $this->release);
     }
@@ -97,7 +97,7 @@ class DaemonStopStartTaskTest extends PHPUnit_Framework_TestCase
 
         $eventDispatcher->shouldHaveReceived('dispatch')->once(); // the log message
         $this->assertNotNull($this->executedCommand);
-        $this->assertEquals('/the/full/path/start', $this->executedCommand);
+        $this->assertEquals('start', $this->executedCommand);
         $this->assertNotNull($this->release);
         $this->assertEquals('current', $this->release);
     }
@@ -117,7 +117,7 @@ class DaemonStopStartTaskTest extends PHPUnit_Framework_TestCase
 
         $eventDispatcher->shouldHaveReceived('dispatch')->once(); // the log message
         $this->assertNotNull($this->executedCommand);
-        $this->assertEquals('/the/full/path/start', $this->executedCommand);
+        $this->assertEquals('start', $this->executedCommand);
         $this->assertNotNull($this->release);
         $this->assertEquals('new', $this->release);
     }
@@ -151,6 +151,8 @@ class DaemonStopStartTaskTest extends PHPUnit_Framework_TestCase
 
             return $result;
         });
+        $connectionMock->shouldReceive('getWorkingDirectory')->andReturn('');
+        $connectionMock->shouldReceive('changeWorkingDirectory');
 
         $hostMock = Mockery::mock(Host::class);
         $hostMock->shouldReceive('hasConnection')->andReturn(true);

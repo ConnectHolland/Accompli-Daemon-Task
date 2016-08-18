@@ -114,7 +114,10 @@ class DaemonStopStartTask extends AbstractConnectedTask
     {
         $host = $release->getWorkspace()->getHost();
         $connection = $this->ensureConnection($host);
-        $result = $connection->executeCommand(sprintf('%s/%s', $release->getPath(), $command));
+        $currentWorkingDirectory = $connection->getWorkingDirectory();
+        $path = $release->getPath();
+        $connection->changeWorkingDirectory($path);
+        $result = $connection->executeCommand($command);
 
         if ($result->isSuccessful()) {
             $eventDispatcher->dispatch(
@@ -145,5 +148,7 @@ class DaemonStopStartTask extends AbstractConnectedTask
                 )
             );
         }
+
+        $connection->changeWorkingDirectory($currentWorkingDirectory);
     }
 }

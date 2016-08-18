@@ -114,18 +114,22 @@ class DaemonStopStartTask extends AbstractConnectedTask
     {
         $host = $release->getWorkspace()->getHost();
         $connection = $this->ensureConnection($host);
-        $result = $connection->executeCommand(sprintf('%s/%s', $release->getPath(), $command));
+        $currentWorkingDirectory = $connection->getWorkingDirectory();
+        $path = $release->getPath();
+        $connection->changeWorkingDirectory($path);
+        $result = $connection->executeCommand($command);
 
         if ($result->isSuccessful()) {
             $eventDispatcher->dispatch(
                 AccompliEvents::LOG,
                 new LogEvent(
-                    LogLevel::DEBUG,
-                    'Succeeded to control the daemon using {daemon}.',
+                    LogLevel::NOTICE,
+                    'Succeeded to control the daemon using {daemon} in {path}.',
                     $eventName,
                     $this,
                     [
                         'daemon' => $command,
+                        'path'   => $path,
                     ]
                 )
             );
@@ -134,16 +138,19 @@ class DaemonStopStartTask extends AbstractConnectedTask
                 AccompliEvents::LOG,
                 new LogEvent(
                     LogLevel::WARNING,
-                    '{separator} Failed to control the daemon using {daemon} because {error}.{separator} ',
+                    '{separator} Failed to control the daemon using {daemon} in {path} because {error}.{separator} ',
                     $eventName,
                     $this,
                     [
                         'daemon'    => $command,
                         'error'     => $result->getErrorOutput(),
                         'separator' => "\n=================\n",
+                        'path'      => $path,
                     ]
                 )
             );
         }
+
+        $connection->changeWorkingDirectory($currentWorkingDirectory);
     }
 }

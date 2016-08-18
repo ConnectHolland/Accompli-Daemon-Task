@@ -123,12 +123,13 @@ class DaemonStopStartTask extends AbstractConnectedTask
             $eventDispatcher->dispatch(
                 AccompliEvents::LOG,
                 new LogEvent(
-                    LogLevel::DEBUG,
-                    'Succeeded to control the daemon using {daemon}.',
+                    LogLevel::NOTICE,
+                    'Succeeded to control the daemon using {daemon} in {path}.',
                     $eventName,
                     $this,
                     [
                         'daemon' => $command,
+                        'path'   => $path,
                     ]
                 )
             );
@@ -137,13 +138,14 @@ class DaemonStopStartTask extends AbstractConnectedTask
                 AccompliEvents::LOG,
                 new LogEvent(
                     LogLevel::WARNING,
-                    '{separator} Failed to control the daemon using {daemon} because {error}.{separator} ',
+                    '{separator} Failed to control the daemon using {daemon} in {path} because {error}.{separator} ',
                     $eventName,
                     $this,
                     [
                         'daemon'    => $command,
                         'error'     => $result->getErrorOutput(),
                         'separator' => "\n=================\n",
+                        'path'      => $path,
                     ]
                 )
             );
